@@ -9,18 +9,10 @@
 // Find the sum of all the even-valued terms in the sequence which do not
 // exceed four million.
 
-var n1 = 1;
-var n2 = 0;
-var total = 0;
-var fib;
-
-do {
-	if((fib = n1 + n2) % 2 == 0) {
-		total += fib;
+for(var n1 = 1, n2 = 0, sum = 0, fib; (fib = n1 + n2) < 4000000; n1 = n2, n2 = fib) {
+	if(fib % 2 == 0) {
+		sum += fib;
 	}
-	n1 = n2;
-	n2 = fib;
-} while(fib < 4000000);
+}
 
-// TODO: return your answer for this prompt.
-return total;
+return sum;

@@ -22,7 +22,7 @@
 // sum of two abundant numbers.
 
 Array.prototype.diff = function(a) {
-    return this.filter(function(i) {return a.indexOf(i) < 0;});
+    return this.filter(i => a.indexOf(i) < 0);
 };
 
 function d(n) {
@@ -45,7 +45,4 @@ for(var i = 0; i < abundant.length; i++) {
 		}
 	}
 }
-var sums = Object.keys(output).map(x => parseInt(x));
-
-// TODO: return your answer for this prompt.
-return integers.diff(sums).reduce((a, b) => a + b);
+return integers.diff(Object.keys(output).map(x => parseInt(x))).reduce((a, b) => a + b);

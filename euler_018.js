@@ -52,13 +52,20 @@ var triangle = [
 	[ 4,62,98,27,23, 9,70,98,73,93,38,53,60, 4,23],
 ];
 
-function calculate(triangle, x, y) {
-	var output = triangle[x][y];
-	if(x < 14) {
-		output += Math.max(calculate(triangle, x+1, y  ),
-						   calculate(triangle, x+1, y+1));
+var calculate = function() {
+	var memo = [];
+	return function(triangle, x, y) {
+		var index = x * 10000 + y;
+		if(index in memo) {
+			return memo[index];
+		}
+		var output = triangle[x][y];
+		if(x < triangle.length - 1) {
+			output += Math.max(calculate(triangle, x+1, y  ),
+							   calculate(triangle, x+1, y+1));
+		}
+		return (memo[index] = output);
 	}
-	return output;
-}
+}();
 
 return calculate(triangle, 0, 0);

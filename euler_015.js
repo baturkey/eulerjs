@@ -11,7 +11,7 @@ var size = 20;
 var routes = function() {
 	var memo = [];
 	return function(x, y) {
-		var index = x * 100 + y;
+		var index = x * (size+1) + y;
 		if(index in memo) {
 			return memo[index];
 		}
@@ -29,5 +29,4 @@ var routes = function() {
 	}
 }();
 
-// TODO: return your answer for this prompt.
 return routes(0, 0);

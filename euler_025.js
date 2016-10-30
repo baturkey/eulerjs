@@ -41,7 +41,7 @@ function add(a, b) {
 		if(output[i] > 9) {
 			output[i] %= 10;
 			if(i > 0) {
-				output[i - 1]++;
+				output[i-1]++;
 			} else {
 				output.unshift(1);
 			}
@@ -53,14 +53,10 @@ function add(a, b) {
 var n1 = [1];
 var n2 = [0];
 var fib;
-var count = 0;
 
-do {
-	fib = add(n1, n2);
+for(var count = 1; (fib = add(n1, n2)).length < 1000; count++) {
 	n1 = n2;
 	n2 = fib;
-	count++;
-} while(fib.length < 1000);
+}
 
-// TODO: return your answer for this prompt.
 return count;

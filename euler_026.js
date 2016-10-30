@@ -68,31 +68,28 @@ function terminates(n) {
 	return primeFactors(n).filter(x => x != 2 && x != 5).length == 0;
 }
 
-function fractional(n) {
-	var output = [];
-	for(var digit, i = 0, next = 10; i < 1965; i++, next = 10 * (next - digit * n)) {
-		output.push((digit = Math.floor(next / n)));
-	}
-	return output;
-}
-
 function cycleLength(a, s) {
-	var offset = 0;
-	while((offset = a.indexOf(a[s], s + offset + 1) - s) >= 0 && offset < a.length - offset - s) {
+	var cycle = 0;
+	while((cycle = a.indexOf(a[s], s + cycle + 1) - s) >= 0 && cycle < a.length - cycle - s) {
 		var isCycle = true;
-		for(var i = s; i < Math.floor((a.length - s - offset) / offset) * offset; i++) {
-			if(a[i] != a[i+offset]) {
+		for(var i = s; i < Math.floor((a.length - s - cycle) / cycle) * cycle; i++) {
+			if(a[i] != a[i+cycle]) {
 				isCycle = false;
 			}
 		}
 		if(isCycle) {
-			return offset;
+			return cycle;
 		}
 	}
 	return -1;
 }
 
-function analyze(a) {
+function analyze(n) {
+	var a = [];
+	for(var digit, i = 0, next = 10; i < 1965; i++, next = 10 * (next - digit * n)) {
+		a.push((digit = Math.floor(next / n)));
+	}
+
 	var length;
 	for(var i = 0; (length = cycleLength(a, i)) == -1 && i < a.length; i++);
 	return length;
@@ -103,7 +100,7 @@ var maxvalue  = 0;
 
 for(var i = 2; i < 1000; i++) {
 	if(!terminates(i)) {
-		var length = analyze(fractional(i));
+		var length = analyze(i);
 //		console.log(i, length);
 		if(length > maxlength) {
 			maxlength = length;

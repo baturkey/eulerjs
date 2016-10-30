@@ -5,7 +5,6 @@
 // 
 // Find the sum of the digits in the number 100!
 
-
 function convert(n) {
 	var output = [];
 	while(n > 0) {
@@ -66,5 +65,4 @@ for(let n = 100; n > 0; n--) {
 	product = multiply(product, [n]);
 }
 
-// TODO: return your answer for this prompt.
 return product.reduce((a, b) => a+b);

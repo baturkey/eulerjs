@@ -34,5 +34,4 @@ for(var i = 3; i < 2000000; i += 2) {
 	}
 }
 
-// TODO: return your answer for this prompt.
 return sum;

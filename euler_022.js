@@ -15,13 +15,9 @@
 var fs = require('fs');
 var path = require('path');
 
-function namevalue(s) {
-	return s.split('').map(x => x.charCodeAt() - 64).reduce((a, b) => a + b);
-}
-
 return fs.readFileSync(path.join('.', 'names.txt'), {encoding: 'utf-8'})
 	.split(',')
 	.map(x => x.replace(/"/g, ''))
 	.sort()
-	.map((name, index) => namevalue(name) * (index+1))
+	.map((name, index) => name.split('').map(x => x.charCodeAt() - 64).reduce((a, b) => a + b) * (index + 1))
 	.reduce((a, b) => a + b);

@@ -22,13 +22,7 @@ function permute(a) {
 	var remaining = permute(a.filter(x => x != first));
 	for(var i in remaining) {
 		for(var pos = 0; pos <= remaining[i].length; pos++) {
-			if(pos == 0) {
-				output.push([first].concat(remaining[i]));
-			} else if(pos == remaining[i].length) {
-				output.push(remaining[i].concat([first]));
-			} else {
-				output.push(remaining[i].slice(0, pos).concat([first]).concat(remaining[i].slice(pos)));
-			}
+			output.push(remaining[i].slice(0, pos).concat([first]).concat(remaining[i].slice(pos)));
 		}
 	}
 	return output;

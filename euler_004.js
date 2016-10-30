@@ -25,5 +25,4 @@ for(var i = 100; i < 1000; i++) {
 	}
 }
 
-// TODO: return your answer for this prompt.
 return max;

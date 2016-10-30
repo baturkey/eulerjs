@@ -70,7 +70,8 @@ var primeFactors = function() {
 }();
 
 var triangle = 1;
-for(var i = 2; i <= 100000; i++) {
+var divisors = 1;
+for(var i = 2; divisors <= 500; i++) {
 	triangle += i;
 
 	var factors = primeFactors(triangle)
@@ -79,13 +80,10 @@ for(var i = 2; i <= 100000; i++) {
 			return acc;
 		}, {});
 
-	
-	var divisors = 1;
+	divisors = 1;
 	for(var key in factors) {
 		divisors *= factors[key] + 1;
 	}
-
-	if(divisors > 500) {
-		return triangle;
-	}
 }
+
+return triangle;

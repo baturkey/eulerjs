@@ -17,8 +17,7 @@ var isPrime = function() {
 			return (memo[n] = false);
 		}
 	
-		var upper = Math.sqrt(n);
-		for(var i = 3; i <= upper; i += 2) {
+		for(var i = 3; i <= Math.sqrt(n); i += 2) {
 			if(n % i == 0 && isPrime(i)) {
 				return (memo[n] = false);
 			}
@@ -29,8 +28,7 @@ var isPrime = function() {
 
 var max = 0;
 var n = 600851475143;
-var upper = Math.sqrt(n);
-for(var i = 3; i < upper; i += 2) {
+for(var i = 3; i < Math.sqrt(n); i += 2) {
 	if(n % i == 0 && isPrime(i)) {
 		max = i;
 	}
