@@ -60,7 +60,7 @@ for(var a = -999; a < 1000; a++) {
 		var num = numPrimes(a, b);
 		if(num > max) {
 			max = num;
-			product =a*b;
+			product = a * b;
 		}
 	}
 }
