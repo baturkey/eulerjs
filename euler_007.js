@@ -20,7 +20,7 @@ var isPrime = function() {
 	
 		var upper = Math.sqrt(n);
 		for(var i = 3; i <= upper; i += 2) {
-			if(n % i == 0 && isPrime(i)) {
+			if(n % i == 0) {
 				return (memo[n] = false);
 			}
 		}
