@@ -50,12 +50,10 @@ function mult10(a, p) {
 function multiply(a, b) {
 	var output = [];
 	for(var i = a.length - 1; i >= 0; i--) {
-		var sub = [];
 		for(var j = b.length - 1; j >= 0; j--) {
-			sub = add(sub, mult10(convert(a[i] * b[j]),
-								  a.length + b.length - i - j - 2));
+			output = add(output, mult10(convert(a[i] * b[j]),
+										a.length + b.length - i - j - 2));
 		}
-		output = add(output, sub);
 	}
 	return output;
 }
