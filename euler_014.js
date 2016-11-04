@@ -19,27 +19,13 @@
 // 
 // NOTE: Once the chain starts the terms are allowed to go above one million.
 
-var collatz = function() {
-	var memo = [];
-	return function(n) {
-		if(n in memo) {
-			return memo[n];
-		}
-		if(n % 2 == 0) {
-			return (memo[n] = n/2);
-		} else {
-			return (memo[n] = 3 * n + 1);
-		}
-	}
-}();
-
 var count_collatz = function() {
 	var memo = [0, 1];
 	return function(n) {
 		if(n in memo) {
 			return memo[n];
 		}
-		return (memo[n] = count_collatz(collatz(n)) + 1);
+		return (memo[n] = count_collatz(n % 2 == 0 ? n/2 : 3 * n + 1) + 1);
 	}
 }();
 
