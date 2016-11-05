@@ -18,14 +18,20 @@ function permute(a) {
 	}
 
 	var first = a.pop();
-	
-	var remaining = permute(a.filter(x => x != first));
+	var remaining = permute(a);
+
 	for(var i in remaining) {
 		for(var pos = 0; pos <= remaining[i].length; pos++) {
-			output.push(remaining[i].slice(0, pos).concat([first]).concat(remaining[i].slice(pos)));
+			output.push(remaining[i]
+						.slice(0, pos)
+						.concat([first])
+						.concat(remaining[i].slice(pos))
+					   );
 		}
 	}
 	return output;
 }
 
-return permute(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']).map(x => x.join('')).sort()[999999];
+return permute(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'])
+	.map(x => x.join(''))
+	.sort()[999999];
