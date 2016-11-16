@@ -7,12 +7,13 @@
 // Find the largest palindrome made from the product of two 3-digit numbers.
 
 function isPalindrome(n) {
-	var reverse = 0;
-	var magnitude = Math.floor(Math.log(n) / Math.LN10);
-	for(var i = 0; i <= magnitude; i++) {
-		reverse += Math.floor(n / Math.pow(10, i)) % 10 * Math.pow(10, magnitude - i);
+	var s = n.toString();
+	for(var i = 0; i < s.length / 2; i++) {
+		if(s[i] != s[s.length - 1 - i]) {
+			return false;
+		}
 	}
-	return n == reverse;
+	return true;
 }
 
 var max = 0;
@@ -24,5 +25,4 @@ for(var i = 100; i < 1000; i++) {
 		}
 	}
 }
-
 return max;
