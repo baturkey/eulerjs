@@ -57,21 +57,21 @@ function convert(n) {
 			return "nineteen";
 		}
 	} else if(n >= 20 && n < 30) {
-		return "twenty" + convert(n%10);
+		return "twenty"  + convert(n%10);
 	} else if(n >= 30 && n < 40) {
-		return "thirty" + convert(n%10);
+		return "thirty"  + convert(n%10);
 	} else if(n >= 40 && n < 50) {
-		return "forty" + convert(n%10);
+		return "forty"   + convert(n%10);
 	} else if(n >= 50 && n < 60) {
-		return "fifty" + convert(n%10);
+		return "fifty"   + convert(n%10);
 	} else if(n >= 60 && n < 70) {
-		return "sixty" + convert(n%10);
+		return "sixty"   + convert(n%10);
 	} else if(n >= 70 && n < 80) {
 		return "seventy" + convert(n%10);
 	} else if(n >= 80 && n < 90) {
-		return "eighty" + convert(n%10);
+		return "eighty"  + convert(n%10);
 	} else if(n >= 90 && n < 100) {
-		return "ninety" + convert(n%10);
+		return "ninety"  + convert(n%10);
 	} else if(n >= 100 && n < 1000) {
 		return convert(Math.floor(n / 100)) + "hundred" + (n % 100 == 0 ? "" : "and" + convert(n%100));
 	} else if(n == 1000) {
