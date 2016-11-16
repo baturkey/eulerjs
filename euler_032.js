@@ -35,11 +35,6 @@ function isPandigital(s) {
 			return false;
 		}
 	}
-	for(var i = 0; i < 9; i++) {
-		if(check[i] == true) {
-			return false;
-		}
-	}
 	return true;
 }
 
