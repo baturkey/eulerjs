@@ -40,5 +40,4 @@ for(var i = 0; i < 987; i++) {
 	max = Math.max(max, product);
 }
 
-// TODO: return your answer for this prompt.
 return max;

@@ -40,5 +40,4 @@ for(var i = 1; i < 1000000; i++) {
 	}
 }
 
-// TODO: return your answer for this prompt.
 return max_num;

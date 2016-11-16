@@ -35,5 +35,4 @@ for(var counter = 1; counter < 10001; i += 2) {
 	}
 }
 
-// TODO: return your answer for this prompt.
 return i - 2;

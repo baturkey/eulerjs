@@ -17,10 +17,6 @@
 // How many Sundays fell on the first of the month during the twentieth
 // century (1 Jan 1901 to 31 Dec 2000)?
 
-function isLeap(y) {
-	return y % 4 == 0 && (y % 100 != 0 || y % 400 == 0);
-}
-
 function numDays(m, y) {
 	switch(m) {
 	case 1:
@@ -37,13 +33,13 @@ function numDays(m, y) {
 	case 11:
 		return 30;
 	case 2:
-		return isLeap(y) ? 29 : 28;
+		return y % 4 == 0 && (y % 100 != 0 || y % 400 == 0) ? 29 : 28;
 	}
 }
 
 var days = -1;
 for(var m = 1; m <= 12; m++) {
-	days += numDays(m, y);
+	days += numDays(m, 1900);
 }
 
 var count = 0;
@@ -57,5 +53,4 @@ for(var y = 1901; y <= 2000; y++) {
 	}
 }
 
-// TODO: return your answer for this prompt.
 return count;

@@ -237,5 +237,4 @@ for(var j = i + 1; j < i + 11; j++) {
 	head.push(total_arr[j]);
 }
 
-// TODO: return your answer for this prompt.
 return head.join('');

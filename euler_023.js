@@ -25,16 +25,14 @@ Array.prototype.diff = function(a) {
     return this.filter(i => a.indexOf(i) < 0);
 };
 
-function d(n) {
-	return Array(Math.floor((n+1)/2))
-			.fill(0)
-			.map((cur, ind) => ind + 1)
+function isAbundant(n) {
+	return Array(Math.floor((n + 1) / 2)).fill(0).map((cur, ind) => ind + 1)
 			.filter(x => n % x == 0)
-			.reduce((a, b) => a + b);
+			.reduce((a, b) => a + b) > n;
 }
 
 var integers = Array(28123).fill(0).map((cur, ind) => ind + 1);
-var abundant = integers.filter(x => d(x) > x);
+var abundant = integers.filter(x => isAbundant(x));
 
 var output = {};
 for(var i = 0; i < abundant.length; i++) {
@@ -45,4 +43,7 @@ for(var i = 0; i < abundant.length; i++) {
 		}
 	}
 }
-return integers.diff(Object.keys(output).map(x => parseInt(x))).reduce((a, b) => a + b);
+
+return integers
+	.diff(Object.keys(output).map(x => parseInt(x)))
+	.reduce((a, b) => a + b);
