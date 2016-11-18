@@ -19,4 +19,4 @@ for(var i = 0; s.length <= 1000000; i++) {
 	s += i;
 }
 
-return s.charAt(1) * s.charAt(10) * s.charAt(100) * s.charAt(1000) * s.charAt(10000) * s.charAt(100000) * s.charAt(1000000);
+return s[1] * s[10] * s[100] * s[1000] * s[10000] * s[100000] * s[1000000];
