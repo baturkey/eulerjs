@@ -6,31 +6,18 @@
 // 
 // What is the 10001st prime number?
 
-var isPrime = function() {
-	var memo = [false, false, true];
-
-	return function(n) {
-		if(n in memo) {
-			return memo[n];
+function isOddPrime(n) {
+	for(var i = 3; i <= Math.sqrt(n); i += 2) {
+		if(n % i == 0) {
+			return false;
 		}
-
-		if(n % 2 == 0) {
-			return (memo[n] = false);
-		}
-	
-		var upper = Math.sqrt(n);
-		for(var i = 3; i <= upper; i += 2) {
-			if(n % i == 0) {
-				return (memo[n] = false);
-			}
-		}
-		return (memo[n] = true);
-	};
-}();
+	}
+	return true;
+}
 
 var i = 3;
 for(var counter = 1; counter < 10001; i += 2) {
-	if(isPrime(i)) {
+	if(isOddPrime(i)) {
 		counter++;
 	}
 }
