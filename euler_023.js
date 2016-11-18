@@ -21,29 +21,35 @@
 // Find the sum of all the positive integers which cannot be written as the
 // sum of two abundant numbers.
 
-Array.prototype.diff = function(a) {
-    return this.filter(i => a.indexOf(i) < 0);
-};
-
 function isAbundant(n) {
-	return Array(Math.floor((n + 1) / 2)).fill(0).map((cur, ind) => ind + 1)
-			.filter(x => n % x == 0)
-			.reduce((a, b) => a + b) > n;
+	var divisors = [1];
+	var upper = n/2;
+	for(var i = 2; i <= upper; i++) {
+		if(n % i == 0) {
+			divisors.push(i);
+		}
+	}
+	return divisors.reduce((a, b) => a + b) > n;
 }
 
-var integers = Array(28123).fill(0).map((cur, ind) => ind + 1);
-var abundant = integers.filter(x => isAbundant(x));
+var total    = 0;
+var abundant = [];
+var sums     = {};
 
-var output = {};
-for(var i = 0; i < abundant.length; i++) {
-	for(var j = 0; j < abundant.length; j++) {
-		var sum = abundant[i] + abundant[j];
-		if(sum <= 28123) {
-			output[sum] = true;
+for(var x = 1; x <= 28123; x++) {
+	if(isAbundant(x)) {
+		abundant.push(x);
+		for(var y = 0; y < abundant.length; y++) {
+			var newsum = x + abundant[y];
+			if(!(newsum in sums)) {
+				sums[newsum] = true;
+			}
 		}
+	}
+
+	if(!(x in sums)) {
+		total += x;
 	}
 }
 
-return integers
-	.diff(Object.keys(output).map(x => parseInt(x)))
-	.reduce((a, b) => a + b);
+return total;
