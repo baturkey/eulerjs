@@ -12,14 +12,12 @@
 // 
 // What is the total of all the name scores in the file?
 
-var fs   = require('fs');
-var path = require('path');
-
-return fs.readFileSync(path.join('.', 'names.txt'), {encoding: 'utf-8'})
+return require('fs')
+	.readFileSync('names.txt', {encoding: 'utf-8'})
+	.replace(/"/g, "")
 	.split(',')
 	.sort()
 	.map((name, index) => name
-		 .replace(/"/g, "")
 		 .split('')
 		 .map(x => x.charCodeAt() - 64).reduce((a, b) => a + b) * (index + 1))
 	.reduce((a, b) => a + b);

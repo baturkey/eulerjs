@@ -14,12 +14,11 @@
 // Using words.txt, a 16K text file containing nearly two-thousand common
 // English words, how many are triangle words?
 
-var fs   = require('fs');
-var path = require('path');
-
-return fs.readFileSync(path.join('.', 'words.txt'), {encoding: 'utf-8'})
+return require('fs')
+	.readFileSync('words.txt', {encoding: 'utf-8'})
+	.replace(/"/g, "")
 	.split(",")
-	.map(x => x.replace(/"/g, "")
+	.map(x => x
 		 .split('')
 		 .map(x => x.charCodeAt() - 64)
 		 .reduce((a, b) => a + b))

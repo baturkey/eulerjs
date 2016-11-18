@@ -20,10 +20,11 @@
 // would take over twenty billion years to check them all. There is an
 // efficient algorithm to solve it. ;o)
 
-var fs = require('fs');
-var path = require('path');
+var triangle = require('fs')
+	.readFileSync('triangle.txt', {encoding: 'utf-8'})
+	.split("\r\n")
+	.map(x => x.split(" "));
 
-var triangle = fs.readFileSync(path.join('.', 'triangle.txt'), {encoding: 'utf-8'}).split("\r\n").map(x => x.split(" "));
 triangle.pop();
 
 var calculate = function() {
