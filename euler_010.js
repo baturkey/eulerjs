@@ -5,33 +5,19 @@
 // 
 // Find the sum of all the primes below two million.
 
-var isPrime = function() {
-	var memo = [false, false, true];
-
-	return function(n) {
-		if(n in memo) {
-			return memo[n];
+function isOddPrime(n) {
+	for(var i = 3; i <= Math.sqrt(n); i += 2) {
+		if(n % i == 0) {
+			return false;
 		}
-
-		if(n % 2 == 0) {
-			return (memo[n] = false);
-		}
-	
-		var upper = Math.sqrt(n);
-		for(var i = 3; i <= upper; i += 2) {
-			if(n % i == 0) {
-				return (memo[n] = false);
-			}
-		}
-		return (memo[n] = true);
-	};
-}();
+	}
+	return true;
+}
 
 var sum = 2;
 for(var i = 3; i < 2000000; i += 2) {
-	if(isPrime(i)) {
+	if(isOddPrime(i)) {
 		sum += i;
 	}
 }
-
 return sum;
