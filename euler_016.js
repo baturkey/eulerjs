@@ -60,7 +60,7 @@ function multiply(a, b) {
 
 function exp(a, e) {
 	var output = a;
-	for(var i = 0; i < e - 1; i++) {
+	for(var i = 1; i < e; i++) {
 		output = multiply(output, a);
 	}
 	return output;
