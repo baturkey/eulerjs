@@ -59,8 +59,7 @@ function numPrimes(n) {
 	}
 	var numArray  = n.toString().split("");
 	var maxcount  = 0;
-	var numDigits = Math.floor(Math.log(n) / Math.LN10) + 1;
-	var combos    = combinations(Array(numDigits).fill(0).map((a, i) => i));
+	var combos    = combinations(Array(Math.floor(Math.log10(n)) + 1).fill(0).map((a, i) => i));
 	combos.pop();
 
 	for(var j in combos) {

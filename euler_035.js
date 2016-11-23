@@ -44,7 +44,7 @@ function rotations(n) {
 	do {
 		output.push(s);
 		s = s.substr(1) + s[0];
-	} while(i++ < Math.floor(Math.log(n) / Math.LN10));
+	} while(i++ < Math.floor(Math.log10(n)));
 
 	return output;
 }

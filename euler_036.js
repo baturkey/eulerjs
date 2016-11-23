@@ -20,13 +20,13 @@ function convert(n) {
 }
 
 function dec2bin(n) {
-	var max2 = Math.floor(Math.log(n) / Math.log(2));
+	var max2 = Math.floor(Math.log2(n));
 	var b_a = Array(max2 + 1).fill(0);
 
 	while(n > 0) {
 		b_a[max2] = 1;
 		n -= Math.pow(2, max2);
-		max2 = Math.floor(Math.log(n) / Math.log(2))
+		max2 = Math.floor(Math.log2(n));
 	}
 	return b_a;
 }
