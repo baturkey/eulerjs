@@ -8,13 +8,7 @@
 // Considering natural numbers of the form, a^b, where a, b < 100, what is
 // the maximum digital sum?
 
-//var cache = [[], [1], [2], [3], [4], [5], [6], [7], [8], [9], [1, 0]];
 function convert(n) {
-	/*
-	if(n <= 10) {
-		return cache[n];
-	}
-*/
 	var output = [];
 	while(n > 0) {
 		output.unshift(n % 10);

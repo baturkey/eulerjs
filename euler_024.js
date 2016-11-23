@@ -12,15 +12,14 @@
 // 4, 5, 6, 7, 8 and 9?
 
 function permute(s) {
-	var output = [];
 	if(s.length == 1) {
 		return [s];
 	}
-	var first = s[0];
-	var rest  = permute(s.substr(1));
+	var output = [];
+	var rest   = permute(s.substr(1));
 	for(var i in rest) {
 		for(var pos = 0; pos <= rest[i].length; pos++) {
-			output.push(rest[i].substr(0, pos) + first + rest[i].substr(pos));
+			output.push(rest[i].substr(0, pos) + s[0] + rest[i].substr(pos));
 		}
 	}
 	return output;
