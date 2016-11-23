@@ -69,25 +69,13 @@ function multiply(a, b) {
 	return output;
 }
 
-var exp = function() {
-	var memo = [];
-	return function(a, e) {
-		if(e == 1) {
-			return a;
-		}
-		var key = a.join('') + ',' + e;
-		if(key in memo) {
-			return memo[key];
-		}
-		return (memo[key] = multiply(a, exp(a, e-1)));
-	}
-}();
-
 var cache = {};
 
-for(var a = 2; a <= 100; a++) {
+for(var a = 100; a > 1; a--) {
+	var result = [a];
+	var base   = [a];
 	for(var b = 2; b <= 100; b++) {
-		var result = exp([a], b).join('');
+		result = multiply(result, base);
 		if(!(result in cache)) {
 			cache[result] = 1;
 		}
