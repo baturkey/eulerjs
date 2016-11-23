@@ -17,16 +17,10 @@
 
 var sum = 0;
 for(var i = 2; i < 1001; i += 2) {
-	var product;
-	if(i % 2 == 0) {
-		product = i * i + 1;
-		sum += product;
-		sum += product - i;
-		sum += product + i;
-		sum += product - 2 * i
-//		console.log(i, product, product - i, product + i, product - 2 * i);
-	}
+	var product = i * i + 1;
+	sum += product;
+	sum += product - i;
+	sum += product + i;
+	sum += product - 2 * i
 }
-sum += (i-1) * (i-1);
-
-return sum;
+return sum + (i-1) * (i-1);
