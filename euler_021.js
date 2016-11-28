@@ -26,8 +26,11 @@ var d = function() {
 	}
 }();
 
-return Array(9997)
-	.fill(0)
-	.map((cur, ind) => ind + 2)
-	.filter(x => x != d(x) && x == d(d(x)))
-	.reduce((a, b) => a + b);
+var total = 0;
+for(var i = 2; i < 10000; i++) {
+	var s = d(i);
+	if(i != s && s < 10000 && d(s) == i) {
+		total += i;
+	}
+}
+return total;
