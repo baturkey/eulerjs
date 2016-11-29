@@ -50,17 +50,6 @@ function isPolygonal(n) {
 	return 0;
 }
 
-function next(parts) {
-	for(var i = parts.length - 1; parts[i] == 99; i--) {
-		parts[i] = 10;
-	}
-	if(i < 0) {
-		parts[0] = 0;
-		return;
-	}
-	parts[i]++;
-}
-
 var parts = Array(6).fill(10);
 var cycle, poly, i, sub;
 outer: do {
@@ -82,7 +71,16 @@ outer: do {
 	if(i == 6 && sub == 63) {
 		return(cycle.reduce((a, b) => a + b));
 	}
-	next(parts);
+
+	for(i = parts.length - 1; parts[i] == 99; i--) {
+		parts[i] = 10;
+	}
+	if(i < 0) {
+		parts[0] = 0;
+	} else {
+		parts[i]++;
+	}
+
 } while(parts[0] > 0);
 
 return 0;
