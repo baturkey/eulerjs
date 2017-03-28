@@ -183,12 +183,4 @@ function evaluate(h) {
 var hands = require('fs').readFileSync('poker.txt', {encoding: 'utf-8'}).split("\r\n").map(x => x.split(' '));
 hands.pop();
 
-var count = 0;
-
-for(var i in hands) {
-	if(evaluate(hands[i].slice(0, 5)) > evaluate(hands[i].slice(5))) {
-		count++;
-	}
-}
-
-return count;
+return hands.reduce((acc, val) => evaluate(val.slice(0, 5)) > evaluate(val.slice(5)) ? acc + 1 : acc , 0);
