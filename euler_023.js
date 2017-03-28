@@ -32,7 +32,13 @@ function isAbundant(n) {
 	return divisors.reduce((a, b) => a + b) > n;
 }
 
-var total    = 0;
+/* SLOWER
+function isAbundant(n) {
+	return Array(Math.floor(n/2)).fill(0).map((c, i) => i + 1).filter(x => n % x == 0).reduce((a, b) => a + b, 0) > n;
+}
+*/
+
+var total    =  0;
 var abundant = [];
 var sums     = {};
 
