@@ -44,10 +44,7 @@ function add(a, b) {
 }
 
 function mult10(a, p) {
-	for(var i = p; i > 0; i--) {
-		a.push(0);
-	}
-	return a;
+	return a.concat(Array(p).fill(0));
 }
 
 function multiply(a, b) {

@@ -41,10 +41,7 @@ function add(a, b) {
 }
 
 function mult10(a, p) {
-	for(var i = 0; i < p; i++) {
-		a.push(0);
-	}
-	return a;
+	return a.concat(Array(p).fill(0));
 }
 
 function multiply(a, b) {
@@ -59,11 +56,7 @@ function multiply(a, b) {
 }
 
 function exp(a, e) {
-	var output = a;
-	for(var i = 1; i < e; i++) {
-		output = multiply(output, a);
-	}
-	return output;
+	return Array(e).fill(a).reduce(multiply);
 }
 
 return exp([2], 1000).reduce((acc, cur) => acc + cur);
