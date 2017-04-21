@@ -73,7 +73,7 @@ function sequence(n)
 	{
 		var denom1 = n - rest0 * rest0;
 		var next = Math.floor(denom0 * (root - rest0) / denom1);
-		denom0 = Math.round(1 / (denom0 / denom1));
+		denom0 = Math.round(denom1 / denom0);
 		rest0 = -rest0 - denom0 * next;
 		output.push(next);
 	}
