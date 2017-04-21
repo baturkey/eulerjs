@@ -8,7 +8,7 @@
 // 
 // For which value of p < 1000, is the number of solutions maximised?
 
-function solutions(n) {
+function solutions(__, n) {
 	var output = 0;
 	for(var a = 1; a <= n - 2; a++) {
 		for(var b = a; b <= n - 2; b++) {
@@ -21,14 +21,22 @@ function solutions(n) {
 	return output;
 }
 
-var max_s = 0;
-var max_p = 0;
-for(var p = 0; p < 1000; p++) {
-	var s = solutions(p);
-	if(s > max_s) {
-		max_s = s;
-		max_p = p;
-	}
+/*
+A lot slower
+function solutions(__, n) {
+	if(n < 3) return 0;
+	return Array(n - 2).fill(0).map((c, i) => i+1).map(a =>
+		Array(n - 1 - a)
+			.fill(a)
+			.map((c, i) => c + i)
+			.filter(b => Math.pow(a, 2) + Math.pow(b, 2) === Math.pow(n - a - b, 2))
+			.length)
+		.reduce((a, b) => a + b);
 }
+*/
 
-return max_p;
+return Array(1000)
+	.fill(0)
+	.map(solutions)
+	.reduce((acc, val, ind) => val > acc.max_s ? {max_s: val, max_p: ind} : acc, {max_s: 0, max_p: 0})
+	.max_p;
