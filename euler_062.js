@@ -10,7 +10,7 @@
 // are cube.
 
 function isPermutation(n1, n2) {
-	var digits = Array(10).fill(0);
+	var digits = [0,0,0,0,0,0,0,0,0,0];
 	var d;
 
 	while(n1 > 0) {
