@@ -19,5 +19,6 @@ return require('fs')
 	.sort()
 	.map((name, index) => name
 		 .split('')
-		 .map(x => x.charCodeAt() - 64).reduce((a, b) => a + b) * (index + 1))
+		 .map(x => x.charCodeAt() - 64)
+		 .reduce((a, b) => a + b) * (index + 1))
 	.reduce((a, b) => a + b);
