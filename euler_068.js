@@ -61,8 +61,8 @@ function check(inner, outer) {
 	return false;
 }
 
-var rings = [[1, 2, 3, 4, 5],
-			 [1, 3, 5, 7, 9],
+var rings = [[1, 2, 3, 4,  5],
+			 [1, 3, 5, 7,  9],
 			 [2, 4, 6, 8, 10],
 			 [6, 7, 8, 9, 10]];
 
@@ -71,17 +71,18 @@ var output = [];
 for(var ring_index in rings) {
 	var spoke_index = rings.length - 1 - ring_index;
 
-	var a1 = permute(rings[ring_index]);
-	var a2 = permute(rings[spoke_index].slice(1))
+	var ring_list  = permute(rings[ring_index]);
+	var spoke_list = permute(rings[spoke_index].slice(1))
 		.map(b => [rings[spoke_index][0]].concat(b));
 
-	for(var i in a1) {
-		for(var j in a2) {
-			output.push(check(a1[i], a2[j]));
+	for(var i in ring_list) {
+		for(var j in spoke_list) {
+			output.push(check(ring_list[i], spoke_list[j]));
 		}
 	}
 }
 
-output = output.filter(a => a.length === 16);
-
-return output.sort()[output.length - 1];
+return output
+	.filter(a => a.length === 16)
+	.sort()
+	.pop();
