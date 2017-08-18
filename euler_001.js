@@ -6,8 +6,13 @@
 // 
 // Find the sum of all the multiples of 3 or 5 below 1000.
 
-return Array(1000)
-	.fill(0)
-	.map((cur, ind) => ind)
-	.filter(x => x % 3 == 0 || x % 5 == 0)
-	.reduce((a, b) => a + b);
+// Natural numbers as a generator
+function* naturals(limit) {
+    for (let n = 1; n < limit; n++) {
+        yield n;
+    }
+}
+
+return [...naturals(1000)]
+    .filter(x => x % 3 == 0 || x % 5 == 0)
+    .reduce((a, b) => a + b);

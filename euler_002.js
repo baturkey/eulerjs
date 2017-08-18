@@ -9,10 +9,13 @@
 // Find the sum of all the even-valued terms in the sequence which do not
 // exceed four million.
 
-for(var n1 = 1, n2 = 0, sum = 0, fib; (fib = n1 + n2) < 4000000; n1 = n2, n2 = fib) {
-	if(fib % 2 == 0) {
-		sum += fib;
-	}
+// Fibonacci sequence as a generator
+function* fib(limit) {
+    for (let prev = 0, cur = 1; cur < limit; [prev, cur] = [cur, prev + cur]) {
+        yield cur;
+    }
 }
 
-return sum;
+return[...fib(4000000)]               // terms in the sequence which do not exceed four million
+            .filter(i => i % 2 == 0)  // even-valued terms
+            .reduce((j, k) => j + k); // sum of all the even-valued terms
