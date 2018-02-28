@@ -27,7 +27,7 @@ function add(a, b) {
 	for(var i = 0; i < maxlength; i++) {
 		output[i] = a[i] + b[i];
 	}
-	for(var i = maxlength - 1; i >= 0; i--) {
+	for(i = maxlength - 1; i >= 0; i--) {
 		if(output[i] > 9) {
 			output[i] %= 10;
 			if(i > 0) {
@@ -45,14 +45,14 @@ function mult10(a, p) {
 }
 
 function multiply(a, b) {
-	var output = [];
-	for(var i = a.length - 1; i >= 0; i--) {
-		for(var j = b.length - 1; j >= 0; j--) {
-			output = add(output, mult10(convert(a[i] * b[j]),
-										a.length + b.length - i - j - 2));
-		}
+    var output = [];
+    for(var i = a.length - 1; i >= 0; i--) {
+	for(var j = b.length - 1; j >= 0; j--) {
+	    output = add(output, mult10(convert(a[i] * b[j]),
+					a.length + b.length - i - j - 2));
 	}
-	return output;
+    }
+    return output;
 }
 
 let product = [1];

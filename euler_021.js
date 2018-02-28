@@ -23,7 +23,7 @@ var d = function() {
 				.map((cur, ind) => ind + 1)
 				.filter(x => n % x == 0)
 				.reduce((a, b) => a + b));
-	}
+	};
 }();
 
 var total = 0;
