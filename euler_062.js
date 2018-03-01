@@ -9,48 +9,51 @@
 // Find the smallest cube for which exactly five permutations of its digits
 // are cube.
 
-function isPermutation(n1, n2) {
-	var digits = [0,0,0,0,0,0,0,0,0,0];
-	var d;
+function isPermutation(raw, n) {
+    const digits = raw.slice(0);
+    let d;
 
-	while(n1 > 0) {
-		d = n1 % 10;
-		digits[d]++;
-		n1 = (n1 - d) / 10;
-	}
+    while(n) {
+	d = n % 10;
+        if (!digits[d]) {
+            return false;
+        }
+	digits[d]--;
+	n = (n - d) / 10;
+    }
 
-	while(n2 > 0) {
-		d = n2 % 10;
-		digits[d]--;
-		n2 = (n2 - d) / 10;
+    for(var i = 0; i < 10; i++) {
+	if(digits[i]) {
+	    return false;
 	}
-
-	for(var i = 0; i < 10; i++) {
-		if(digits[i] != 0) {
-			return false;
-		}
-	}
-	return true;
+    }
+    return true;
 }
 
-var cubes = {};
+const cubes = [];
 
-for(var i = 2; i < 10000; i++) {
-	var cube = Math.pow(i, 3);
-	var magnitude = Math.trunc(Math.log10(cube));
-	if(!(magnitude in cubes)) {
-		cubes[magnitude] = [];
+for(var i = 2; ; i++) {
+    let cube = Math.pow(i, 3);
+    const magnitude = Math.trunc(Math.log10(cube));
+    if(!(magnitude in cubes)) {
+	cubes[magnitude] = [];
+    }
+    cubes[magnitude].unshift(cube);
+
+    const raw = [0,0,0,0,0,0,0,0,0,0];
+    let d;
+    while(cube) {
+	d = cube % 10;
+	raw[d]++;
+	cube = (cube - d) / 10;
+    }
+
+    let count = 1;
+    for(let j = 1; j < cubes[magnitude].length; j++) {
+	if(isPermutation(raw, cubes[magnitude][j])) {
+	    if(++count == 5) {
+		return cubes[magnitude][j];
+	    }
 	}
-	
-	var count = 0;
-	for(var j = cubes[magnitude].length - 1; j >= 0; j--) {
-		if(isPermutation(cube, cubes[magnitude][j])) {
-			if(count == 3) {
-				return cubes[magnitude][j];
-			}
-			count++;
-		}
-	}
-	cubes[magnitude].push(cube);
+    }
 }
-return 0;
