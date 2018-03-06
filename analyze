@@ -30,7 +30,7 @@ rl.on('close', () => {
     console.log("Correct:");
     results
 	.filter(x => x.result == true)
-	.sort((a, b) => a.time > b.time ? 1 : (a.time < b.time ? -1 : 0))
+	.sort((a, b) => a.time - b.time)
 	.map(x => console.log(x.id, x.time));
     console.log("Incorrect:");
     results
