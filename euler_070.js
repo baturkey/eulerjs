@@ -30,7 +30,7 @@ for (let i = 2; i <= SQRT_MAX; i++) {
 
 for (let i = SQRT_MAX + 1; i <= HALF_MAX; i++) {
     const limit = Math.trunc(MAX / i);
-    for (let j = 2; j < limit; j++) {
+    for (let j = 2; j <= limit; j++) {
         const index = i * j;
         f[index] -= f[i];
         f[index] -= f[j];
@@ -41,13 +41,12 @@ let minValue = Number.POSITIVE_INFINITY;
 let minIndex = 0;
 
 for (let i = 2; i < MAX; i++) {
-    if (!isPermutation(i, f[i])) {
-        continue;
-    }
-    const division = i / f[i];
-    if (division < minValue) {
-        minValue = division;
-        minIndex = i;
+    if (isPermutation(i, f[i])) {
+        const division = i / f[i];
+        if (division < minValue) {
+            minValue = division;
+            minIndex = i;
+        }
     }
 }
 
