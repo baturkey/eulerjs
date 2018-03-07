@@ -8,70 +8,72 @@
 // Considering natural numbers of the form, a^b, where a, b < 100, what is
 // the maximum digital sum?
 
-function convert(n) {
-	var output = [];
-	while(n > 0) {
-		output.unshift(n % 10);
-		n = Math.floor(n / 10);
-	}
-	return output;
-}
-
-function add(a, b) {
-	var maxlength = Math.max(a.length, b.length);
-	while(a.length < maxlength) {
-		a.unshift(0);
-	}
-	while(b.length < maxlength) {
-		b.unshift(0);
-	}
-
-	var output = [];
-	for(var i = 0; i < maxlength; i++) {
-		output[i] = a[i] + b[i];
-	}
-	for(var i = maxlength - 1; i >= 0; i--) {
-		if(output[i] > 9) {
-			output[i] %= 10;
-			if(i > 0) {
-				output[i - 1]++;
-			} else {
-				output.unshift(1);
-			}
-		}
-	}
-	return output;
-}
-
-function mult10(a, p) {
-	return a.concat(Array(p).fill(0));
-}
-
 function multiply(a, b) {
-	var output = [];
-	for(var i = a.length - 1; i >= 0; i--) {
-		for(var j = b.length - 1; j >= 0; j--) {
-			output = add(output, mult10(convert(a[i] * b[j]),
-										a.length + b.length - i - j - 2));
-		}
+
+    function convert(n) {
+        let output = [];
+        let d;
+
+        while(n) {
+            d = n % 10;
+	    n = (n - d) / 10;
+            output.unshift(d);
+        }
+        return output;
+    }
+
+    function add(a, b) {
+        var maxlength = Math.max(a.length, b.length);
+        while(a.length < maxlength) {
+            a.unshift(0);
+        }
+        while(b.length < maxlength) {
+	    b.unshift(0);
+        }
+
+        for(var i = 0; i < maxlength; i++) {
+	    a[i] += b[i];
+        }
+        for(i = maxlength - 1; i >= 0; i--) {
+	    if(a[i] > 9) {
+	        a[i] %= 10;
+                if (!i) {
+		    a.unshift(1);
+                } else {
+		    a[i - 1]++;
+	        }
+	    }
+        }
+    }
+
+    function mult10(a, p) {
+        return a.concat(Array(p).fill(0));
+    }
+
+    var output = [];
+    for(var i = a.length - 1; i >= 0; i--) {
+	for(var j = b.length - 1; j >= 0; j--) {
+	    add(output, mult10(convert(a[i] * b[j]),
+			       a.length + b.length - i - j - 2));
 	}
-	return output;
+    }
+    return output;
 }
 
 var max = 0;
 for(var a = 99; a > 1; a--) {
-	if(a % 10 == 0) {
-		continue;
-	}
-	var base = convert(a);
-	var result = [1];
+    if(a % 10 == 0) {
+	continue;
+    }
+    var base = [a];
+    var result = [1];
 
-	for(var b = 1; b < 99; b++) {
-		result = multiply(result, base);
-		var sum = result.reduce((a, b) => a + b);
-		if(sum > max) {
-			max = sum;
-		}
+    for(var b = 1; b < 99; b++) {
+	result = multiply(result, base);
+	var sum = result.reduce((a, b) => a + b);
+	if(sum > max) {
+	    max = sum;
 	}
+    }
 }
 return max;
