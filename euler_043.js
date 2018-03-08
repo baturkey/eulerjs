@@ -57,5 +57,5 @@ function matches(s) {
 }
 
 return permute("0123456789")
-    .filter(x => matches(x))
+    .filter(matches)
     .reduce((a, b) => a + parseInt(b), 0);
