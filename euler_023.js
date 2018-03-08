@@ -21,41 +21,40 @@
 // Find the sum of all the positive integers which cannot be written as the
 // sum of two abundant numbers.
 
-function isAbundant(n) {
-	var divisors = [1];
-	var upper = n/2;
-	for(var i = 2; i <= upper; i++) {
-		if(n % i == 0) {
-			divisors.push(i);
-		}
-	}
-	return divisors.reduce((a, b) => a + b) > n;
+const MAX = 28123;
+const SQRT_MAX = Math.trunc(Math.sqrt(MAX));
+const HALF_MAX = Math.trunc(MAX / 2);
+const f = Array(MAX + 1).fill(1);
+
+for (let i = 2; i <= SQRT_MAX; i++) {
+    for (let j = 2; j < i; j++) {
+        f[i * j] += i + j;
+    }
+    f[i * i] += i;
 }
 
-/* SLOWER
-function isAbundant(n) {
-	return Array(Math.floor(n/2)).fill(0).map((c, i) => i + 1).filter(x => n % x == 0).reduce((a, b) => a + b, 0) > n;
+for (let i = SQRT_MAX + 1; i <= HALF_MAX; i++) {
+    const limit = Math.trunc(MAX / i);
+    for (let j = 2; j <= limit; j++) {
+        f[i * j] += i + j;
+    }
 }
-*/
 
 var total    =  0;
 var abundant = [];
 var sums     = {};
 
-for(var x = 1; x <= 28123; x++) {
-	if(isAbundant(x)) {
-		abundant.push(x);
-		for(var y = 0; y < abundant.length; y++) {
-			var newsum = x + abundant[y];
-			if(!(newsum in sums)) {
-				sums[newsum] = true;
-			}
-		}
+for(var x = 1; x <= MAX; x++) {
+    if(x < f[x]) {
+	abundant.push(x);
+	for(var y = 0; y < abundant.length; y++) {
+	    sums[x + abundant[y]] = true;
 	}
+    }
 
-	if(!(x in sums)) {
-		total += x;
-	}
+    if(!(x in sums)) {
+	total += x;
+    }
 }
 
 return total;
