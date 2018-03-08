@@ -21,9 +21,7 @@ const f = Array(MAX + 1).fill(0).map((_, a) => a - 1);
 
 for (let i = 2; i <= SQRT_MAX; i++) {
     for (let j = 2; j < i; j++) {
-        const index = i * j;
-        f[index] -= f[i];
-        f[index] -= f[j];
+        f[i * j] -= f[i] + f[j];
     }
     f[i * i] -= f[i];
 }
@@ -31,9 +29,7 @@ for (let i = 2; i <= SQRT_MAX; i++) {
 for (let i = SQRT_MAX + 1; i <= HALF_MAX; i++) {
     const limit = Math.trunc(MAX / i);
     for (let j = 2; j <= limit; j++) {
-        const index = i * j;
-        f[index] -= f[i];
-        f[index] -= f[j];
+        f[i * j] -= f[i] + f[j];
     }
 }
 
