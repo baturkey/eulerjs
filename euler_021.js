@@ -12,25 +12,30 @@
 // 
 // Evaluate the sum of all the amicable numbers under 10000.
 
-var d = function() {
-	var memo = [];
-	return function(n) {
-		if(n in memo) {
-			return memo[n];
-		}
-		return (memo[n] = Array(Math.floor((n+1)/2))
-				.fill(0)
-				.map((cur, ind) => ind + 1)
-				.filter(x => n % x == 0)
-				.reduce((a, b) => a + b));
-	};
-}();
+const MAX = 1e4;
+const SQRT_MAX = Math.trunc(Math.sqrt(MAX));
+const HALF_MAX = Math.trunc(MAX / 2);
+const d = Array(MAX + 1).fill(1);
+
+for (let i = 2; i <= SQRT_MAX; i++) {
+    for (let j = 2; j < i; j++) {
+        d[i * j] += i + j;
+    }
+    d[i * i] += i;
+}
+
+for (let i = SQRT_MAX + 1; i <= HALF_MAX; i++) {
+    const limit = Math.trunc(MAX / i);
+    for (let j = 2; j <= limit; j++) {
+        d[i * j] += i + j;
+    }
+}
 
 var total = 0;
-for(var i = 2; i < 10000; i++) {
-	var s = d(i);
-	if(i != s && s < 10000 && d(s) == i) {
-		total += i;
-	}
+for(var i = 2; i < MAX; i++) {
+    var s = d[i];
+    if(i != d[i] && d[s] == i) {
+	total += i;
+    }
 }
 return total;
