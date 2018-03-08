@@ -19,45 +19,43 @@
 // Find the sum of all 0 to 9 pandigital numbers with this property.
 
 function permute(s) {
-	var output = [];
-	if(s.length == 1) {
-		return [s];
+    if(s.length == 1) {
+	return [s];
+    }
+    const output = [];
+    for(let i of permute(s.substr(1))) {
+	for(let pos = 0; pos <= i.length; pos++) {
+	    output.push(i.substr(0, pos) + s[0] + i.substr(pos));
 	}
-	var first = s[0];
-	var rest  = permute(s.substr(1));
-	for(var i in rest) {
-		for(var pos = 0; pos <= rest[i].length; pos++) {
-			output.push(rest[i].substr(0, pos) + first + rest[i].substr(pos));
-		}
-	}
-	return output;
+    }
+    return output;
 }
 
 function matches(s) {
-	if(s.substr(1, 3) %  2 != 0) {
-		return false;
-	}
-	if(s.substr(2, 3) %  3 != 0) {
-		return false;
-	}
-	if(s.substr(3, 3) %  5 != 0) {
-		return false;
-	}
-	if(s.substr(4, 3) %  7 != 0) {
-		return false;
-	}
-	if(s.substr(5, 3) % 11 != 0) {
-		return false;
-	}
-	if(s.substr(6, 3) % 13 != 0) {
-		return false;
-	}
-	if(s.substr(7, 3) % 17 != 0) {
-		return false;
-	}
-	return true;
+    if(s.substr(1, 3) %  2 != 0) {
+	return false;
+    }
+    if(s.substr(2, 3) %  3 != 0) {
+	return false;
+    }
+    if(s.substr(3, 3) %  5 != 0) {
+	return false;
+    }
+    if(s.substr(4, 3) %  7 != 0) {
+	return false;
+    }
+    if(s.substr(5, 3) % 11 != 0) {
+	return false;
+    }
+    if(s.substr(6, 3) % 13 != 0) {
+	return false;
+    }
+    if(s.substr(7, 3) % 17 != 0) {
+	return false;
+    }
+    return true;
 }
 
 return permute("0123456789")
-	.filter(x => matches(x))
-	.reduce((a, b) => a + parseInt(b), 0);
+    .filter(x => matches(x))
+    .reduce((a, b) => a + parseInt(b), 0);
