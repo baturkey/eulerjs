@@ -11,60 +11,73 @@
 // concatenate to produce another prime.
 
 var isOddPrime = function() {
-	var memo = [false, false, true];
+    var memo = [false, false, true];
 
-	return function(n) {
-		if(n in memo) {
-			return memo[n];
-		}
-		var upper = Math.sqrt(n);
-		for(var i = 3; i <= upper; i += 2) {
-			if(n % i == 0) {
-				return (memo[n] = false);
-			}
-		}
-		return (memo[n] = true);
-	};
+    return function(n) {
+	if(n in memo) {
+	    return memo[n];
+	}
+	var upper = Math.sqrt(n);
+	for(var i = 3; i <= upper; i += 2) {
+	    if(n % i == 0) {
+		return (memo[n] = false);
+	    }
+	}
+	return (memo[n] = true);
+    };
 }();
+
+function concat(i, j) {
+    for (let k = j; k > 1; k /= 10) {
+        i *= 10;
+    }
+    return i + j;
+}
+
+function sortedEquals(a, b) {
+    if (a.length != b.length) {
+        return false;
+    }
+    for (let i = 0; i < a.length; i++) {
+        if (a[i] != b[i]) {
+            return false;
+        }
+    }
+    return true;
+}
 
 const LIMIT = 5;
 
-var primes     = [3];
-var good_pairs = {3:[]};
+let prime_sets = [[3]];
 
-for(var i = 7; i < 10000; i += 2) { // skip 5
-	if(isOddPrime(i)) {
-		good_pairs[i] = [];
-		for(var j = 0; j < primes.length; j++) {
+for (let i = 7; ; i += 2) {
+    if (!isOddPrime(i)) {
+        continue;
+    }
 
-			if(isOddPrime(parseInt("" + primes[j] + i)) &&
-			   isOddPrime(parseInt("" + i + primes[j]))) {
+    const limit = prime_sets.length;
+    for (let j = 0; j < limit; j++) {
+        const set = prime_sets[j];
+        const match_set = set.filter(prime => isOddPrime(concat(prime, i)) && isOddPrime(concat(i, prime)));
+        if (match_set.length == set.length) {
+            set.push(i);
+            if (set.length == LIMIT) {
+		return set.reduce((a, b) => a + b);
+            }
+        } else if(match_set.length) {
+            match_set.push(i);
 
-				good_pairs[primes[j]].push(i);
-				good_pairs[i].push(primes[j]);
-
-				if(good_pairs[primes[j]].length >= LIMIT - 1) {
-					var prime_set = [primes[j]];
-					for(var k = 0; k < good_pairs[primes[j]].length; k++) {
-						var p = good_pairs[primes[j]][k];
-						var matches = true;
-						for(var l = 1; l < prime_set.length; l++) {
-							if(good_pairs[prime_set[l]].indexOf(p) == -1) {
-								matches = false;
-								continue;
-							}
-						}
-						if(matches) {
-							prime_set.push(p);
-							if(prime_set.length == LIMIT) {
-								return prime_set.reduce((a, b) => a + b);
-							}
-						}
-					}
-				}
-			}
-		}
-		primes.push(i);
-	}
+            let found = false;
+            for (let k = limit; k < prime_sets.length; k++) {
+                if (sortedEquals(prime_sets[k], match_set)) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                prime_sets.push(match_set);
+            }
+        }
+    }
+    prime_sets.push([i]);
 }
-return 0;
