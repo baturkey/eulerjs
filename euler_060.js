@@ -46,6 +46,8 @@ function sortedEquals(a, b) {
     return true;
 }
 
+const makeConcatFunc = i => prime => isOddPrime(concat(prime, i)) && isOddPrime(concat(i, prime));
+
 const LIMIT = 5;
 
 let prime_sets = [[3]];
@@ -55,10 +57,14 @@ for (let i = 7; ; i += 2) {
         continue;
     }
 
+    const isPrimeConcat = makeConcatFunc(i);
     const limit = prime_sets.length;
+
     for (let j = 0; j < limit; j++) {
+
         const set = prime_sets[j];
-        const match_set = set.filter(prime => isOddPrime(concat(prime, i)) && isOddPrime(concat(i, prime)));
+        const match_set = set.filter(isPrimeConcat);
+
         if (match_set.length == set.length) {
             set.push(i);
             if (set.length == LIMIT) {
