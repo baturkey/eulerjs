@@ -31,31 +31,15 @@ function permute(s) {
     return output;
 }
 
-function matches(s) {
-    if(s.substr(1, 3) %  2 != 0) {
-	return false;
-    }
-    if(s.substr(2, 3) %  3 != 0) {
-	return false;
-    }
-    if(s.substr(3, 3) %  5 != 0) {
-	return false;
-    }
-    if(s.substr(4, 3) %  7 != 0) {
-	return false;
-    }
-    if(s.substr(5, 3) % 11 != 0) {
-	return false;
-    }
-    if(s.substr(6, 3) % 13 != 0) {
-	return false;
-    }
-    if(s.substr(7, 3) % 17 != 0) {
-	return false;
-    }
-    return true;
-}
+const matches = s =>
+      s[3] % 2 == 0 &&
+      (s[5] == '0' || s[5] == '5') &&
+      s.substr(7, 3) % 17 == 0 &&
+      s.substr(6, 3) % 13 == 0 &&
+      s.substr(5, 3) % 11 == 0 &&
+      s.substr(4, 3) %  7 == 0 &&
+      s.substr(2, 3) %  3 == 0;
 
-return permute("0123456789")
+return permute('0123456789')
     .filter(matches)
-    .reduce((a, b) => a + parseInt(b), 0);
+    .reduce((a, b) => a + +b, 0);

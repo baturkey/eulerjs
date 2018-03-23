@@ -30,59 +30,55 @@
 // a "magic" 5-gon ring?
 
 function permute(a) {
-	var output = [];
-	if(a.length == 1) {
-		return [a];
+    var output = [];
+    if(a.length == 1) {
+	return [a];
+    }
+    for(var i of permute(a.slice(1))) {
+	for(var pos = 0; pos <= i.length; pos++) {
+	    output.push(i.slice(0, pos).concat(a[0], i.slice(pos)));
 	}
-	var first = a[0];
-	var rest  = permute(a.slice(1));
-	for(var i in rest) {
-		for(var pos = 0; pos <= rest[i].length; pos++) {
-			output.push(rest[i].slice(0, pos)
-						.concat(first)
-						.concat(rest[i].slice(pos)));
-		}
-	}
-	return output;
+    }
+    return output;
 }
 
 function check(inner, outer) {
-	var check_array = [[outer[0], inner[0], inner[1]],
-					   [outer[1], inner[1], inner[2]],
-					   [outer[2], inner[2], inner[3]],
-					   [outer[3], inner[3], inner[4]],
-					   [outer[4], inner[4], inner[0]]];
+    var check_array = [[outer[0], inner[0], inner[1]],
+		       [outer[1], inner[1], inner[2]],
+		       [outer[2], inner[2], inner[3]],
+		       [outer[3], inner[3], inner[4]],
+		       [outer[4], inner[4], inner[0]]];
 
-	if(check_array
-	   .map(a => a.reduce((x, y) => x + y))
-	   .reduce((x, y) => x == y ? x : false)) {
-		return check_array.reduce((a, b) => a + b.reduce((c, d) => c + d, ''), '');
-	}
-	return false;
+    if(check_array
+       .map(a => a.reduce((x, y) => x + y))
+       .reduce((x, y) => x == y ? x : false)) {
+	return check_array.reduce((a, b) => a + b.reduce((c, d) => c + d, ''), '');
+    }
+    return false;
 }
 
 var rings = [[1, 2, 3, 4,  5],
-			 [1, 3, 5, 7,  9],
-			 [2, 4, 6, 8, 10],
-			 [6, 7, 8, 9, 10]];
+	     [1, 3, 5, 7,  9],
+	     [2, 4, 6, 8, 10],
+	     [6, 7, 8, 9, 10]];
 
 var output = [];
 
 for(var ring_index in rings) {
-	var spoke_index = rings.length - 1 - ring_index;
+    var spoke_index = rings.length - 1 - ring_index;
 
-	var ring_list  = permute(rings[ring_index]);
-	var spoke_list = permute(rings[spoke_index].slice(1))
-		.map(b => [rings[spoke_index][0]].concat(b));
+    var ring_list  = permute(rings[ring_index]);
+    var spoke_list = permute(rings[spoke_index].slice(1))
+	.map(b => [rings[spoke_index][0]].concat(b));
 
-	for(var i in ring_list) {
-		for(var j in spoke_list) {
-			output.push(check(ring_list[i], spoke_list[j]));
-		}
+    for(var i in ring_list) {
+	for(var j in spoke_list) {
+	    output.push(check(ring_list[i], spoke_list[j]));
 	}
+    }
 }
 
 return output
-	.filter(a => a.length === 16)
-	.sort()
-	.pop();
+    .filter(a => a.length === 16)
+    .sort()
+    .pop();

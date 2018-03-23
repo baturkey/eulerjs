@@ -9,43 +9,46 @@
 // 
 // How many circular primes are there below one million?
 
-const isPrime = function() {
-    const memo = [false, false, true];
+const primeCache = [false, false, true];
 
-    return function(n) {
-	if(n in memo) {
-	    return memo[n];
-	}
+function isPrime(n) {
+    if(n in primeCache) {
+	return primeCache[n];
+    }
 
-	if(n % 2 == 0) {
-	    return (memo[n] = false);
+    if(n % 2 == 0) {
+	return (primeCache[n] = false);
+    }
+
+    const upper = Math.sqrt(n);
+    for(var i = 3; i <= upper; i += 2) {
+	if(n % i == 0) {
+	    return (primeCache[n] = false);
 	}
-	
-	const upper = Math.sqrt(n);
-	for(var i = 3; i <= upper; i += 2) {
-	    if(n % i == 0) {
-		return (memo[n] = false);
-	    }
-	}
-	return (memo[n] = true);
-    };
-}();
+    }
+    return (primeCache[n] = true);
+}
 
 function primeRotations(n) {
-    var s = n.toString();
-    for (var i = 0; i < Math.floor(Math.log10(n)) + 1; i++) {
-        if (!isPrime(s)) {
+    let mag = 0;
+    for (let m = n; m >= 10; m /= 10) {
+        mag++;
+    }
+
+    for (let i = 0; i <= mag; i++) {
+        if (!isPrime(n)) {
             return false;
         }
-        s = s.substr(1) + s[0];
+        let d = n % 10;
+        n = d * 10 ** mag + (n - d) / 10;
     }
     return true;
 }
 
-for(var count = 1, i = 3; i < 1e6; i += 2) {
+let count = 1;
+for(let i = 3; i < 1e6; i += 2) {
     if (primeRotations(i)) {
         count++;
     }
 }
-
 return count;
