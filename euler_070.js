@@ -36,15 +36,15 @@ for (let i = SQRT_MAX + 1; i <= HALF_MAX; i++) {
 let minValue = Number.POSITIVE_INFINITY;
 let minIndex = 0;
 
-for (let i = 2; i < MAX; i++) {
-    if (isPermutation(i, f[i])) {
-        const division = i / f[i];
+f.forEach((cur, i) => {
+    if (i > 1 && isPermutation(cur, i)) {
+        const division = i / cur;
         if (division < minValue) {
             minValue = division;
             minIndex = i;
         }
     }
-}
+});
 
 return minIndex;
 

@@ -10,22 +10,20 @@
 // Find the lowest sum for a set of five primes for which any two primes
 // concatenate to produce another prime.
 
-var isOddPrime = function() {
-    var memo = [false, false, true];
+var memo = [false, false, true];
 
-    return function(n) {
-	if(n in memo) {
-	    return memo[n];
+function isOddPrime(n) {
+    if(n in memo) {
+	return memo[n];
+    }
+    var upper = Math.sqrt(n);
+    for(var i = 3; i <= upper; i += 2) {
+	if(n % i == 0) {
+	    return (memo[n] = false);
 	}
-	var upper = Math.sqrt(n);
-	for(var i = 3; i <= upper; i += 2) {
-	    if(n % i == 0) {
-		return (memo[n] = false);
-	    }
-	}
-	return (memo[n] = true);
-    };
-}();
+    }
+    return (memo[n] = true);
+}
 
 function concat(i, j) {
     for (let k = j; k > 1; k /= 10) {
@@ -60,7 +58,7 @@ for (let i = 7; ; i += 2) {
     const isPrimeConcat = makeConcatFunc(i);
     const limit = prime_sets.length;
 
-    for (let j = 0; j < limit; j++) {
+    search: for (let j = 0; j < limit; j++) {
 
         const set = prime_sets[j];
         const match_set = set.filter(isPrimeConcat);
@@ -73,16 +71,12 @@ for (let i = 7; ; i += 2) {
         } else if(match_set.length) {
             match_set.push(i);
 
-            let found = false;
             for (let k = limit; k < prime_sets.length; k++) {
                 if (sortedEquals(prime_sets[k], match_set)) {
-                    found = true;
-                    break;
+                    continue search;
                 }
             }
-            if (!found) {
-                prime_sets.push(match_set);
-            }
+            prime_sets.push(match_set);
         }
     }
     prime_sets.push([i]);

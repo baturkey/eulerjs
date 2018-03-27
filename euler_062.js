@@ -33,17 +33,22 @@ function isPermutation(raw, n) {
 const cubes = [];
 
 for(var i = 2; ; i++) {
-    let cube = Math.pow(i, 3);
-    const magnitude = Math.trunc(Math.log10(cube));
+    let cube = i * i * i;
+
+    let magnitude = 0;
+    for (let m = cube; m >= 10; m /= 10) {
+        magnitude++;
+    }
+
     if(!(magnitude in cubes)) {
 	cubes[magnitude] = [];
     }
     cubes[magnitude].unshift(cube);
 
     const raw = [0,0,0,0,0,0,0,0,0,0];
-    let d;
+
     while(cube) {
-	d = cube % 10;
+	let d = cube % 10;
 	raw[d]++;
 	cube = (cube - d) / 10;
     }

@@ -36,6 +36,7 @@ const MAX = 1e6;
 const SQRT_MAX = Math.trunc(Math.sqrt(MAX));
 const HALF_MAX = Math.trunc(MAX / 2);
 const f = Array(MAX + 1).fill(0).map((_, a) => a - 1);
+f[1] = 1;
 
 for (let i = 2; i <= SQRT_MAX; i++) {
     for (let j = 2; j < i; j++) {
@@ -54,12 +55,12 @@ for (let i = SQRT_MAX + 1; i <= HALF_MAX; i++) {
 let maxValue = Number.NEGATIVE_INFINITY;
 let maxIndex = 0;
 
-for (let i = 2; i <= MAX; i++) {
-    const division = i / f[i];
+f.forEach((cur, i) => {
+    const division = i / cur;
     if (division > maxValue) {
         maxValue = division;
         maxIndex = i;
     }
-}
+});
 
 return maxIndex;
