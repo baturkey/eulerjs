@@ -26,13 +26,7 @@ const MAX = 1500000;
 const SQRT_MAX = Math.trunc(Math.sqrt(MAX));
 const HALF_MAX = Math.trunc(MAX / 2);
 
-const squares = Array(MAX).fill(0).map((_, n) => n * n);
-const factors = Array(MAX + 1);
-const results = Array(MAX).fill(0);
-
-for (let i = 0; i < factors.length; i++) {
-    factors[i] = [];
-}
+const factors = Array(MAX + 1).fill(undefined).map(() => []);
 
 for (let i = 2; i <= SQRT_MAX; i++) {
     for (let j = 2; j < i; j++) {
@@ -50,45 +44,34 @@ for (let i = SQRT_MAX + 1; i <= HALF_MAX; i++) {
     }
 }
 
-for (let b = 0; b < squares.length; b++) {
-    let odds = oddifySquare(squares[b], factors[b]);
-    for (let j = 0; j < odds.length; j++) {
-        let a = (odds[j].result - 1) / 2;
-        if (b > a) {
-            results[a + b + a + odds[j].factor]++;
+const results = Array(MAX).fill(0);
+for (let b = 0; b < HALF_MAX; b++) {
+    const sq = b * b;
+    const input = factors[b];
+    const isOdd = sq & 1;
+    const factorArray = new Set();
+
+    for (let i = 0; i < input.length; i++) {
+        if ((input[i] & 1) == isOdd) {
+            factorArray.add(input[i]);
+        }
+        for (let j = i; j < input.length; j++) {
+            let f = input[i] * input[j];
+            if ((f & 1) == isOdd) {
+                factorArray.add(f);
+            }
+        }
+    }
+
+    for (let factor of factorArray.values()) {
+        const div = sq / factor;
+        if (factor < div && isOdd == (div & 1)) {
+            const a = (div - factor) / 2;
+            if (b > a) {
+                results[a + b + a + factor]++;
+            }
         }
     }
 }
 
 return results.filter(i => i == 1).length;
-
-function oddifySquare(sq, input) {
-    const output = [];
-    const isOdd = sq & 1;
-    const factorArray = new Set(input);
-
-    for (let i in input) {
-        for (let j = i; j < input.length; j++) {
-            factorArray.add(input[i] * input[j]);
-        }
-    }
-    
-    for (let factor of factorArray.values()) {
-        if (isOdd != (factor & 1)) {
-            continue;
-        }
-
-        let div = sq / factor;
-
-        if (factor > div || isOdd != (div & 1)) {
-            continue;
-        }
-
-        let result = div - factor + 1;
-
-        if (result !== 1) {
-            output.push({result, factor});
-        }
-    }
-    return output;
-}

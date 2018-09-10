@@ -18,7 +18,7 @@ function permute(s) {
     const output = [];
     for(let e of permute(s.substr(1))) {
 	for(let pos = 0; pos <= e.length; pos++) {
-	    output.push(e.substr(0, pos) + s[0] + e.substr(pos));
+            output.push(e.substr(0, pos) + s[0] + e.substr(pos));
 	}
     }
     return output;
