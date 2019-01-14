@@ -47,28 +47,29 @@ for (let i = SQRT_MAX + 1; i <= HALF_MAX; i++) {
 const results = Array(MAX).fill(0);
 for (let b = 0; b < HALF_MAX; b++) {
     const sq = b * b;
-    const input = factors[b];
     const isOdd = sq & 1;
-    const factorArray = new Set();
+    const used = {};
+    const factorArray = [];
 
-    for (let i = 0; i < input.length; i++) {
-        if ((input[i] & 1) == isOdd) {
-            factorArray.add(input[i]);
+    for (let i = 0; i < factors[b].length; i++) {
+        if (isOdd == (factors[b][i] & 1)) {
+            factorArray.push(factors[b][i]);
         }
-        for (let j = i; j < input.length; j++) {
-            let f = input[i] * input[j];
-            if ((f & 1) == isOdd) {
-                factorArray.add(f);
+        for (let j = i; j < factors[b].length; j++) {
+            const f = factors[b][i] * factors[b][j];
+            if (isOdd == (f & 1)) {
+                factorArray.push(f);
             }
         }
     }
 
-    for (let factor of factorArray.values()) {
+    for (let factor of factorArray) {
         const div = sq / factor;
         if (factor < div && isOdd == (div & 1)) {
             const a = (div - factor) / 2;
-            if (b > a) {
+            if (b > a && !(factor in used)) {
                 results[a + b + a + factor]++;
+                used[factor] = true;
             }
         }
     }
