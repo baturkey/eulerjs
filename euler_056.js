@@ -23,18 +23,17 @@ function multiply(a, b) {
     }
 
     function add(a, b) {
-        var maxlength = Math.max(a.length, b.length);
-        while(a.length < maxlength) {
+        while(a.length < b.length) {
             a.unshift(0);
         }
-        while(b.length < maxlength) {
+        while(b.length < a.length) {
 	    b.unshift(0);
         }
 
-        for(var i = 0; i < maxlength; i++) {
+        for(var i = 0; i < a.length; i++) {
 	    a[i] += b[i];
         }
-        for(i = maxlength - 1; i >= 0; i--) {
+        for(i = a.length - 1; i >= 0; i--) {
 	    if(a[i] > 9) {
 	        a[i] %= 10;
                 if (!i) {

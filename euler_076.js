@@ -13,11 +13,21 @@
 // How many different ways can one hundred be written as a sum of at least
 // two positive integers?
 
+const cache = {};
 function findsum(n, min) {
     if (2 * min > n) {
         return 0;
     }
-    return findsum(n, min + 1) + findsum(n - min, min) + 1;
+
+    if (!(n in cache)) {
+        cache[n] = {};
+    }
+
+    if (min in cache[n]) {
+        return cache[n][min];
+    }
+
+    return (cache[n][min] = findsum(n - min, min) + findsum(n, min + 1) + 1);
 }
 
 return findsum(100, 1);
